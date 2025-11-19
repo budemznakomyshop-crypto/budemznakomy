@@ -37,10 +37,9 @@ const dripProducts = [
     price: 130,
   },
   {
-    image: "dripethiopia.jpg",
+    image: "dripethopia.jpg",
     name: "Эфиопия Арричи",
     country: "Мытая обработка",
-    processing: "Мытая обработка",
     quantity: "дрип-пакет",
     flavors: ["Цитрус", "Ягоды", "Цветы"],
     price: 130,
