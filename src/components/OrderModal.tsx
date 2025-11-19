@@ -261,4 +261,4 @@ ${deliveryType === "delivery" ? `Адрес доставки: ${formData.address
       </div>
     </div>
   );
-}
+} 
