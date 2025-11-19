@@ -15,16 +15,15 @@ export function Hero({
   children,
 }: HeroProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null); // ⬅️ ДОБАВЛЕНО: Ссылка на видео-элемент
   const rafRef = useRef<number | null>(null);
-  const [height, setHeight] = useState<number>(800); // Начальная высота, обновится на клиенте
+  const [height, setHeight] = useState<number>(800);
   const [loadVideo, setLoadVideo] = useState<boolean>(false);
 
   // --- 1. Проверка условий для загрузки видео ---
   useEffect(() => {
-    // Если это SSR (серверный рендеринг), ничего не делаем
     if (typeof window === "undefined") return;
-    
-    setHeight(window.innerHeight); // Сразу ставим высоту окна
+    setHeight(window.innerHeight);
 
     const mr = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
     const nav: any = navigator;
@@ -34,7 +33,6 @@ export function Hero({
     if ((mr && mr.matches) || saveData) {
       setLoadVideo(false);
     } else {
-      // По умолчанию false, включится через Observer ниже
       setLoadVideo(false);
     }
   }, []);
@@ -48,14 +46,10 @@ export function Hero({
     
     if (coffee) {
       const rect = coffee.getBoundingClientRect();
-      // Вычисляем абсолютную позицию верха блока #coffee
       const topAbs = Math.max(0, Math.floor(rect.top + window.scrollY));
-      // Если мы еще не проскроллили далеко, Hero занимает место до #coffee
-      // Но не меньше minHeight
       newH = topAbs > 0 ? topAbs : newH;
     }
     
-    // Гарантируем минимальную высоту
     newH = Math.max(minHeight, newH);
     
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
@@ -68,9 +62,8 @@ export function Hero({
     
     window.addEventListener("resize", onResize);
     window.addEventListener("orientationchange", onResize);
-    window.addEventListener("load", updateHeight); // Важно для полной загрузки
+    window.addEventListener("load", updateHeight);
 
-    // ResizeObserver для надежности
     let ro: ResizeObserver | null = null;
     const coffeeEl = document.getElementById("coffee");
     if (coffeeEl && window.ResizeObserver) {
@@ -111,7 +104,28 @@ export function Hero({
     }
   }, [loadVideo]);
 
-  // --- 4. Скролл к контенту ---
+  // 💥 4. ХАК ДЛЯ IPHONE (Принудительный запуск через JS) 💥
+  useEffect(() => {
+    if (loadVideo && videoRef.current) {
+        const video = videoRef.current;
+        
+        // 1. Принудительно устанавливаем свойства для iOS
+        video.muted = true;
+        video.defaultMuted = true;
+        video.playsInline = true;
+
+        // 2. Пытаемся запустить
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.catch((error) => {
+                // Если запуск не удался (например, Low Power Mode), это нормально
+                console.warn("Autoplay blocked by browser policy:", error); 
+            });
+        }
+    }
+  }, [loadVideo]);
+
+  // --- 5. Скролл к контенту ---
   const scrollToContent = () => {
     const coffee = document.getElementById("coffee");
     if (coffee) {
@@ -124,13 +138,14 @@ export function Hero({
   return (
     <div
       ref={rootRef}
-      className="relative w-full overflow-hidden bg-black" // Добавил bg-black на случай задержки загрузки
+      className="relative w-full overflow-hidden bg-black"
       style={{ height: `${height}px`, minHeight: `${minHeight}px` }}
     >
       {loadVideo ? (
         <video
+          ref={videoRef} // ⬅️ ДОБАВЛЕНО: Привязываем ref к видео
           className="absolute inset-0 w-full h-full object-cover"
-          src={videoSrc}
+          src={videoSrc} // ⬅️ Использует вашу ссылку на CDN
           poster={poster}
           preload="metadata"
           autoPlay
@@ -148,8 +163,6 @@ export function Hero({
       {/* Затемнение (Overlay) */}
       <div className="video-overlay-dark absolute inset-0 pointer-events-none" />
 
-      {/* --- МЕСТО, ГДЕ БЫЛ video-bottom-blur (УДАЛЕНО) --- */}
-
       {/* Контент (Навигация) */}
       <div className="relative z-20 w-full h-full">
         {children}
@@ -161,7 +174,6 @@ export function Hero({
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 group focus:outline-none"
         aria-label="Scroll down"
       >
-        {/* Круглая подложка для гарантии видимости на любом фоне */}
         <div className="p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg group-hover:bg-white/20 transition-all duration-300">
           <ChevronDown className="w-8 h-8 text-white animate-bounce-slow drop-shadow-md" />
         </div>
