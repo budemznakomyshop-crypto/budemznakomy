@@ -29,22 +29,21 @@ const beansProducts = [
 
 const dripProducts = [
   {
-    image: "https://images.unsplash.com/photo-1512372388054-a322888e67a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkcmlwJTIwY29mZmVlJTIwYmFnJTIwcGFja2FnZXxlbnwxfHx8fDE3NjI4NjQ3NTR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    name: "Колумбия Хорхе",
-    country: "Колумбия",
-    processing: "Мытая обработка",
-    quantity: "10 дрип-пакетов",
+    image: "dripkostarica.jpg",
+    name: "Коста-Рика Торразу",
+    country: "Мытая обработка",
+    quantity: "дрип-пакет",
     flavors: ["Шоколад", "Карамель", "Орех"],
-    price: 890,
+    price: 130,
   },
   {
-    image: "https://images.unsplash.com/photo-1760307256225-59037ef0eb83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcmVtaXVtJTIwY29mZmVlJTIwYmVhbnN8ZW58MXx8fHwxNzYyODY0NzU0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    image: "dripethiopia.jpg",
     name: "Эфиопия Арричи",
-    country: "Эфиопия",
+    country: "Мытая обработка",
     processing: "Мытая обработка",
-    quantity: "10 дрип-пакетов",
+    quantity: "дрип-пакет",
     flavors: ["Цитрус", "Ягоды", "Цветы"],
-    price: 950,
+    price: 130,
   },
 ];
 
