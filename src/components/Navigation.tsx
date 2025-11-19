@@ -149,12 +149,12 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
   };
 
   return (
-    <nav className="bg-white py-8">
+    <nav className="py-8">
       <div className="max-w-[1400px] mx-auto px-6">
         {/* grid */}
         <div className="grid grid-cols-8 gap-6 mb-8">
           <div className="col-span-8 lg:col-span-6">
-            <h1 className="display text-[#1E1E1E] mb-2">БУДЕМ ЗНАКОМЫ</h1>
+            <h1 className="display text-white mb-2">БУДЕМ ЗНАКОМЫ</h1>
             <p className="handwritten text-4xl text-[#FF6B35] -rotate-2 inline-block">Семейная кофейня в Петербурге</p>
           </div>
 
@@ -184,7 +184,7 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
                   <div className="flex items-start gap-2 mb-2">
                     <MapPin className="w-4 h-4 text-[#FF6B35] flex-shrink-0 mt-1" />
                     <div>
-                      <p className="text-sm font-bold text-[#1E1E1E] mb-1">Рижский пр-т, 2</p>
+                      <p className="text-sm font-bold text-white mb-1">Рижский пр-т, 2</p>
                       <p className="text-xs text-[#666666] flex items-center gap-1 mb-2">
                         <Clock className="w-3 h-3" /> Пн–Пт: 9–20, Сб–Вс: 10–20
                       </p>
@@ -192,7 +192,7 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
                       <button
                         type="button"
                         onClick={() => setOpenMenu("rizhskiy")}
-                        className="inline-block border-2 border-[#1E1E1E] text-[#1E1E1E] px-3 py-1 rounded-full hover:bg-[#1E1E1E] hover:text-white transition-all text-xs font-bold"
+                        className="inline-block border-2 border-white text-white px-3 py-1 rounded-full hover:bg-white hover:text-white transition-all text-xs font-bold"
                       >
                         Меню
                       </button>
@@ -205,7 +205,7 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
                   <div className="flex items-start gap-2 mb-2">
                     <MapPin className="w-4 h-4 text-[#FF6B35] flex-shrink-0 mt-1" />
                     <div>
-                      <p className="text-sm font-bold text-[#1E1E1E] mb-1">Малый пр-т П.С., 60/19</p>
+                      <p className="text-sm font-bold text-white mb-1">Малый пр-т П.С., 60/19</p>
                       <p className="text-xs text-[#666666] flex items-center gap-1 mb-2">
                         <Clock className="w-3 h-3" /> Пн–Пт: 9–21, Сб–Вс: 10–21
                       </p>
@@ -213,7 +213,7 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
                       <button
                         type="button"
                         onClick={() => setOpenMenu("maly")}
-                        className="inline-block border-2 border-[#1E1E1E] text-[#1E1E1E] px-3 py-1 rounded-full hover:bg-[#1E1E1E] hover:text-white transition-all text-xs font-bold"
+                        className="inline-block border-2 border-white text-white px-3 py-1 rounded-full hover:bg-white hover:text-white transition-all text-xs font-bold"
                       >
                         Меню
                       </button>
@@ -229,7 +229,7 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
                   <a href="https://instagram.com/budemznakomycoffee" target="_blank" rel="noopener noreferrer" className="border-2 border-[#FF6B35] text-[#FF6B35] px-4 py-2 rounded-full hover:bg-[#FF6B35] hover:text-white transition-all hover:scale-105 font-bold text-xs">Instagram</a>
                 </div>
 
-                <a href="tel:+79817175842" className="flex items-center gap-2 text-[#1E1E1E] hover:text-[#FF6B35] transition-colors" aria-label="Позвонить">
+                <a href="tel:+79817175842" className="flex items-center gap-2 text-white hover:text-[#FF6B35] transition-colors" aria-label="Позвонить">
                   <Phone className="w-4 h-4" />
                   <span className="text-sm font-bold">+7 981 717 58 42</span>
                 </a>

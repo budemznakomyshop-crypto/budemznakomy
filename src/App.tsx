@@ -13,41 +13,48 @@ export default function App() {
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const productsRef = useRef<HTMLDivElement>(null);
 
-  const addToCart = (name: string, price: number, grindType: string | undefined, element: HTMLElement) => {
+  const addToCart = (
+    name: string,
+    price: number,
+    grindType: string | undefined,
+    element: HTMLElement
+  ) => {
     const itemId = grindType ? `${name}-${grindType}` : name;
-    
+
     // Animation effect
     const rect = element.getBoundingClientRect();
-    const cartButton = document.querySelector('[data-cart-button]');
+    const cartButton = document.querySelector("[data-cart-button]");
     if (cartButton) {
       const cartRect = cartButton.getBoundingClientRect();
       const clone = element.cloneNode(true) as HTMLElement;
-      clone.style.position = 'fixed';
+      clone.style.position = "fixed";
       clone.style.top = `${rect.top}px`;
       clone.style.left = `${rect.left}px`;
       clone.style.width = `${rect.width}px`;
       clone.style.height = `${rect.height}px`;
-      clone.style.zIndex = '9999';
-      clone.style.pointerEvents = 'none';
-      clone.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-      
+      clone.style.zIndex = "9999";
+      clone.style.pointerEvents = "none";
+      clone.style.transition = "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
+
       document.body.appendChild(clone);
-      
+
       setTimeout(() => {
-        clone.style.transform = `translate(${cartRect.left - rect.left}px, ${cartRect.top - rect.top}px) scale(0.1)`;
-        clone.style.opacity = '0';
+        clone.style.transform = `translate(${cartRect.left - rect.left}px, ${
+          cartRect.top - rect.top
+        }px) scale(0.1)`;
+        clone.style.opacity = "0";
       }, 50);
-      
+
       setTimeout(() => {
         document.body.removeChild(clone);
       }, 850);
     }
 
     // Add to cart
-    setCart(prevCart => {
-      const existingItem = prevCart.find(item => item.id === itemId);
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((item) => item.id === itemId);
       if (existingItem) {
-        return prevCart.map(item =>
+        return prevCart.map((item) =>
           item.id === itemId
             ? { ...item, quantity: item.quantity + 1 }
             : item
@@ -59,23 +66,27 @@ export default function App() {
 
   const removeFromCart = (name: string, grindType?: string) => {
     const itemId = grindType ? `${name}-${grindType}` : name;
-    setCart(prevCart => {
-      const existingItem = prevCart.find(item => item.id === itemId || item.name === name);
+
+    setCart((prevCart) => {
+      const existingItem = prevCart.find(
+        (item) => item.id === itemId || item.name === name
+      );
       if (!existingItem) return prevCart;
-      
+
       if (existingItem.quantity > 1) {
-        return prevCart.map(item =>
+        return prevCart.map((item) =>
           item.id === existingItem.id
             ? { ...item, quantity: item.quantity - 1 }
             : item
         );
       }
-      return prevCart.filter(item => item.id !== existingItem.id);
+
+      return prevCart.filter((item) => item.id !== existingItem.id);
     });
   };
 
   const removeItemCompletely = (itemId: string) => {
-    setCart(prevCart => prevCart.filter(item => item.id !== itemId));
+    setCart((prevCart) => prevCart.filter((item) => item.id !== itemId));
   };
 
   const handleCheckout = () => {
@@ -89,34 +100,50 @@ export default function App() {
 
   const handleBuyClick = () => {
     const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
     if (cartCount > 0) {
       setIsCartOpen(true);
     } else {
-      // Scroll to products
-      productsRef.current?.scrollIntoView({ behavior: 'smooth' });
+      productsRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
   return (
-    <div className="min-h-screen bg-white">
-      <Navigation 
-        onBuyClick={handleBuyClick}
-        cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
-        onCartClick={() => setIsCartOpen(true)}
-      />
-      <Hero />
-      <div ref={productsRef}>
-        <ProductGrid 
+    // Главный контейнер должен быть относительным, чтобы позиционировать Hero
+    <div className="relative min-h-screen bg-white"> 
+      
+      {/* Hero (Видео) — Абсолютное позиционирование, z-index: 0 (Фон) */}
+      <div className="absolute inset-x-0 top-0 z-0 w-full h-full">
+         <Hero />
+      </div>
+
+      {/* Navigation (Заголовок и адреса) — Относительное позиционирование, z-index: 10 (Поверх) */}
+      {/* Мы оборачиваем компонент, чтобы поднять его над Hero */}
+      <div className="relative z-10"> 
+          <Navigation
+              onBuyClick={handleBuyClick}
+              cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
+              onCartClick={() => setIsCartOpen(true)}
+          />
+      </div>
+
+      {/* Блок продуктов, которому даем id="coffee" для расчета высоты Hero.tsx */}
+      <div ref={productsRef} id="coffee">
+        <ProductGrid
           cart={cart}
           onAddToCart={addToCart}
           onRemoveFromCart={removeFromCart}
         />
       </div>
+
       <FAQ />
       <Footer />
-      
+
       <CartModal
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
@@ -135,3 +162,4 @@ export default function App() {
     </div>
   );
 }
+
