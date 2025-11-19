@@ -1,3 +1,4 @@
+// App (1).tsx
 import { useState, useRef } from "react";
 import { Navigation } from "./components/Navigation";
 import { Hero } from "./components/Hero";
@@ -114,25 +115,18 @@ export default function App() {
   );
 
   return (
-    // Главный контейнер должен быть относительным, чтобы позиционировать Hero
-    <div className="relative min-h-screen bg-white"> 
+    <div className="min-h-screen bg-white">
       
-      {/* Hero (Видео) — Абсолютное позиционирование, z-index: 0 (Фон) */}
-      <div className="absolute inset-x-0 top-0 z-0 w-full h-full">
-         <Hero />
-      </div>
+      {/* 1. Hero с видеофоном. Navigation теперь - дочерний компонент Hero. */}
+      <Hero>
+        <Navigation
+          onBuyClick={handleBuyClick}
+          cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
+          onCartClick={() => setIsCartOpen(true)}
+        />
+      </Hero>
 
-      {/* Navigation (Заголовок и адреса) — Относительное позиционирование, z-index: 10 (Поверх) */}
-      {/* Мы оборачиваем компонент, чтобы поднять его над Hero */}
-      <div className="relative z-10"> 
-          <Navigation
-              onBuyClick={handleBuyClick}
-              cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
-              onCartClick={() => setIsCartOpen(true)}
-          />
-      </div>
-
-      {/* Блок продуктов, которому даем id="coffee" для расчета высоты Hero.tsx */}
+      {/* 2. Блок продуктов, которому даем id="coffee" для расчета высоты Hero.tsx */}
       <div ref={productsRef} id="coffee">
         <ProductGrid
           cart={cart}

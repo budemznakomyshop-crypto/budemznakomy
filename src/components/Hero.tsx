@@ -1,16 +1,18 @@
 // Hero.tsx
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback, ReactNode } from "react";
 
 type HeroProps = {
   videoSrc?: string;
   poster?: string;
   minHeight?: number; // минимальная высота в px
+  children?: ReactNode; // Добавляем children для контента поверх
 };
 
 export function Hero({
   videoSrc = "video.webm",
   poster = "/video-poster.jpg",
   minHeight = 240,
+  children, // Принимаем контент
 }: HeroProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number | null>(null);
@@ -127,7 +129,8 @@ export function Hero({
     <div
       ref={rootRef}
       className="relative w-full overflow-hidden"
-      style={{ height: `${height}px`, minHeight: `${minHeight}px` }}
+      // !!! ИСПРАВЛЕННЫЙ СИНТАКСИС JSX (обратные кавычки) !!!
+      style={{ height: `${height}px`, minHeight: `${minHeight}px` }} 
       aria-hidden="true"
     >
       {loadVideo ? (
@@ -144,6 +147,7 @@ export function Hero({
       ) : (
         <div
           className="absolute inset-0 bg-center bg-cover pointer-events-none"
+          // !!! ИСПРАВЛЕННЫЙ СИНТАКСИС JSX (обратные кавычки) !!!
           style={{ backgroundImage: `url(${poster})` }}
         />
       )}
@@ -153,6 +157,11 @@ export function Hero({
 
       {/* нижний плавный fade для перехода к следующему блоку */}
       <div className="video-bottom-blur absolute left-0 right-0 bottom-0 pointer-events-none" />
+      
+      {/* Контент, который передается поверх видео (Navigation) */}
+      <div className="relative z-20 w-full h-full"> 
+         {children} 
+      </div>
     </div>
   );
 }
