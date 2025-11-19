@@ -9,7 +9,7 @@ type HeroProps = {
 };
 
 export function Hero({
-  videoSrc = "video.webm",
+  videoSrc = "video.mp4",
   poster = "video-poster.jpg",
   minHeight = 240,
   children,
