@@ -1,4 +1,3 @@
-// App (1).tsx
 import { useState, useRef } from "react";
 import { Navigation } from "./components/Navigation";
 import { Hero } from "./components/Hero";
@@ -24,6 +23,7 @@ export default function App() {
 
     // Animation effect
     const rect = element.getBoundingClientRect();
+    // Ищем кнопку корзины, чтобы к ней летела анимация
     const cartButton = document.querySelector("[data-cart-button]");
     if (cartButton) {
       const cartRect = cartButton.getBoundingClientRect();
@@ -116,8 +116,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      
-      {/* 1. Hero с видеофоном. Navigation теперь - дочерний компонент Hero. */}
+      {/* 💥 КЛЮЧЕВОЕ ИСПРАВЛЕНИЕ: Navigation теперь дочерний элемент Hero.
+          Это позволяет Navigation и стрелке отображаться поверх видео. */}
       <Hero>
         <Navigation
           onBuyClick={handleBuyClick}
@@ -126,7 +126,8 @@ export default function App() {
         />
       </Hero>
 
-      {/* 2. Блок продуктов, которому даем id="coffee" для расчета высоты Hero.tsx */}
+      {/* Продуктовая сетка, которой даем id="coffee". 
+          Hero использует этот ID, чтобы рассчитать свою высоту. */}
       <div ref={productsRef} id="coffee">
         <ProductGrid
           cart={cart}
@@ -156,4 +157,3 @@ export default function App() {
     </div>
   );
 }
-

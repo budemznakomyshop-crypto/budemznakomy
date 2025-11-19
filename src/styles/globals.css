@@ -168,3 +168,48 @@
 .fly-to-cart {
   animation: flyToCart 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+
+/* ---------------------------------------
+   --- КОРРЕКТИРОВКИ ДЛЯ HERO И НАВИГАЦИИ ---
+---------------------------------------- */
+
+/* 1. ПОВЫШАЕМ z-index ДЛЯ БЕЛОГО ГРАДИЕНТА */
+.video-bottom-blur {
+  height: 140px;
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 60%);
+  z-index: 10 !important; /* Устанавливаем выше, чем у видео */
+  transform: translateY(1px);
+}
+
+
+/* ---------------------------------------
+   --- АНИМАЦИЯ ДЛЯ СТРЕЛКИ SCROLL DOWN ---
+---------------------------------------- */
+
+/* 2. Ключевые кадры анимации */
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-10px); 
+    opacity: 0.6;
+  }
+}
+
+/* 3. Класс Tailwind для применения анимации */
+.animate-bounce-slow {
+  animation: bounce-slow 2.5s infinite; 
+}
+
+      {/* АНИМИРОВАННАЯ СТРЕЛКА СОВЕТУЮЩАЯ СКРОЛЛ ВНИЗ */}
+      {/* ВРЕМЕННЫЕ СТИЛИ ДЛЯ ОТЛАДКИ (bg-red-500 и z-50) */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-50 p-2 bg-red-500 rounded-lg">
+          <ChevronDown className="w-10 h-10 text-yellow-300" />
+      </div>
+
+    </div>
+  );
+}
