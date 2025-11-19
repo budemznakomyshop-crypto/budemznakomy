@@ -1,0 +1,7 @@
+# Стандартные игнорируемые файлы для Vite/Node
+/node_modules
+/build
+
+# Игнорирование кэша, который вызвал предупреждение Git
+# node_modules/.cache/
+node_modules/.cache/
