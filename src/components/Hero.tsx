@@ -9,7 +9,7 @@ type HeroProps = {
 };
 
 export function Hero({
-  videoSrc = "video.mp4",
+  videoSrc = "https://res.cloudinary.com/dnvphtopq/video/upload/v1763573487/video_u4utvf.mp4",
   poster = "video-poster.jpg",
   minHeight = 240,
   children,
