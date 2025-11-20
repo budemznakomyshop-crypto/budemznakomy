@@ -211,6 +211,8 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
         </button>
       </div>
 
+<div className="h-24"></div>
+
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="grid grid-cols-8 gap-6 mb-8">
           <div className="col-span-8">
@@ -229,7 +231,7 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
                   <div className="flex items-start gap-2 mb-2">
                     <MapPin className="w-4 h-4 text-[#FF6B35] flex-shrink-0 mt-1" />
                     <div>
-                      {/* ИЗМЕНЕНО: Теперь это <a> ссылка с оранжевым ховером и предотвращением скролла */}
+                      {/* Ссылка-адрес с оранжевым ховером */}
                       <a
                         href="#"
                         onClick={(e) => {
@@ -241,11 +243,11 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
                         Рижский пр-т, 2 &gt;
                       </a>
                       
-                      <p className="text-xs text-white flex items-center gap-1 mb-2">
+                      <p className="text-xs text-[#666666] flex items-center gap-1 mb-2">
                         <Clock className="w-3 h-3" /> Пн–Пт: 9–20, Сб–Вс: 10–20
                       </p>
 
-                      {/* ИЗМЕНЕНО: Возвращена обводка и исправлен ховер */}
+                      {/* Кнопка "Меню" с обводкой */}
                       <button
                         type="button"
                         onClick={() => setActiveModal("rizhskiy")}
@@ -262,7 +264,7 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
                   <div className="flex items-start gap-2 mb-2">
                     <MapPin className="w-4 h-4 text-[#FF6B35] flex-shrink-0 mt-1" />
                     <div>
-                      {/* ИЗМЕНЕНО: Теперь это <a> ссылка с оранжевым ховером и предотвращением скролла */}
+                      {/* Ссылка-адрес с оранжевым ховером */}
                       <a
                         href="#"
                         onClick={(e) => {
@@ -274,11 +276,11 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
                         Малый пр-т П.С., 60/19 &gt;
                       </a>
 
-                      <p className="text-xs text-white flex items-center gap-1 mb-2">
+                      <p className="text-xs text-[#666666] flex items-center gap-1 mb-2">
                         <Clock className="w-3 h-3" /> Пн–Пт: 9–21, Сб–Вс: 10–21
                       </p>
 
-                      {/* ИЗМЕНЕНО: Возвращена обводка и исправлен ховер */}
+                      {/* Кнопка "Меню" с обводкой */}
                       <button
                         type="button"
                         onClick={() => setActiveModal("maly")}
@@ -297,7 +299,7 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
                   <a href="https://vk.com/budemznakomycoffee" target="_blank" rel="noopener noreferrer" className="border-2 border-[#FF6B35] text-[#FF6B35] px-4 py-2 rounded-full hover:bg-[#FF6B35] hover:text-white transition-all hover:scale-105 font-bold text-xs">VK</a>
                 </div>
 
-                {/* Номер телефона (используется как образец для оранжевого ховера) */}
+                {/* Номер телефона */}
                 <a href="tel:+79817175842" className="flex items-center gap-2 text-white hover:text-[#FF6B35] transition-colors" aria-label="Позвонить">
                   <Phone className="w-4 h-4" />
                   <span className="text-sm font-bold">+7 981 717 58 42</span>
@@ -318,5 +320,3 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
     </nav>
   );
 }
-
-
