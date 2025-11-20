@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ShoppingCart, MapPin, Phone, Clock, X, Navigation as NavigationIcon } from "lucide-react";
-
 interface NavigationProps {
   onBuyClick: () => void;
   cartCount: number;
@@ -10,11 +9,9 @@ interface NavigationProps {
     maly?: React.ReactNode;
   };
 }
-
 // Типы для выбора карт
 type LocationKey = "rizhskiy" | "maly";
 type ModalType = LocationKey | "map-rizhskiy" | "map-maly" | null;
-
 function Modal({
   open,
   onClose,
@@ -28,7 +25,6 @@ function Modal({
 }) {
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const lastActive = useRef<HTMLElement | null>(null);
-
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
@@ -50,23 +46,19 @@ function Modal({
         }
       }
     }
-
     if (open) {
       lastActive.current = document.activeElement as HTMLElement | null;
       document.body.style.overflow = "hidden";
       document.addEventListener("keydown", onKey);
       setTimeout(() => dialogRef.current?.focus(), 0);
     }
-
     return () => {
       document.body.style.overflow = "";
       document.removeEventListener("keydown", onKey);
       lastActive.current?.focus();
     };
   }, [open, onClose]);
-
   if (!open) return null;
-
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
       <div
@@ -94,7 +86,6 @@ function Modal({
             <X className="w-5 h-5" />
           </button>
         </div>
-
         <div className="max-h-[70vh] overflow-auto">
           {children}
         </div>
@@ -102,10 +93,8 @@ function Modal({
     </div>
   );
 }
-
 export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: NavigationProps) {
   const [activeModal, setActiveModal] = useState<ModalType>(null);
-
   const mapLinks = {
     rizhskiy: [
       { name: "Яндекс Карты", url: "https://yandex.ru/maps/?text=Санкт-Петербург+Рижский+проспект+2" },
@@ -118,7 +107,6 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
       { name: "2ГИС", url: "https://2gis.ru/spb/search/Малый%20проспект%20П.С.%2060" },
     ]
   };
-
   const defaultMenus = {
     rizhskiy: (
       <div className="w-full flex justify-center">
@@ -141,18 +129,14 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
       </div>
     ),
   } as const;
-
   const getMenuContent = (key: LocationKey) => {
     return (menus && menus[key]) || defaultMenus[key];
   };
-
   const renderModalContent = () => {
     if (!activeModal) return null;
-
     if (activeModal === "map-rizhskiy" || activeModal === "map-maly") {
       const locKey = activeModal === "map-rizhskiy" ? "rizhskiy" : "maly";
       const links = mapLinks[locKey];
-
       return (
         <div className="flex flex-col gap-3 py-2">
           <p className="text-sm text-gray-600 mb-2">Выберите приложение для построения маршрута:</p>
@@ -171,10 +155,8 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
         </div>
       );
     }
-
     return getMenuContent(activeModal as LocationKey);
   };
-
   const getModalTitle = () => {
     switch (activeModal) {
       case "rizhskiy": return "Меню — Рижский пр-т, 2";
@@ -184,7 +166,6 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
       default: return "";
     }
   };
-
   return (
     <nav className="py-8 relative">
       {/* ФИКСИРОВАННЫЕ КНОПКИ */}
@@ -196,7 +177,6 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
         >
           Купить зерна
         </button>
-
         <button
           onClick={onCartClick}
           className="relative group p-2 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-all"
@@ -211,16 +191,18 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
         </button>
       </div>
 
-<div className="h-24"></div>
+      {/* Spacer — чтобы отодвинуть весь блок навигации чуть ниже.
+          Не влияет на фиксированные кнопки. */}
+      <div className="h-6 md:h-12 lg:h-16" aria-hidden="true" />
 
-      <div className="max-w-[1400px] mx-auto px-6">
+      {/* Основной контейнер: добавлен верхний отступ (mt-*) для точной подгонки */}
+      <div className="max-w-[1400px] mx-auto px-6 mt-6 md:mt-10 lg:mt-12">
         <div className="grid grid-cols-8 gap-6 mb-8">
           <div className="col-span-8">
             <h1 className="display text-white mb-2">БУДЕМ ЗНАКОМЫ</h1>
             <p className="handwritten text-4xl text-[#FF6B35] -rotate-2 inline-block">Семейная кофейня в Петербурге</p>
           </div>
         </div>
-
         <div className="grid grid-cols-8 gap-6">
           <div className="col-span-8">
             <div className="flex flex-wrap items-start justify-between gap-6 p-4">
@@ -242,11 +224,10 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
                       >
                         Рижский пр-т, 2 &gt;
                       </a>
-                      
+                    
                       <p className="text-xs text-[#666666] flex items-center gap-1 mb-2">
                         <Clock className="w-3 h-3" /> Пн–Пт: 9–20, Сб–Вс: 10–20
                       </p>
-
                       {/* Кнопка "Меню" с обводкой */}
                       <button
                         type="button"
@@ -258,7 +239,6 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
                     </div>
                   </div>
                 </div>
-
                 {/* location 2: Малый */}
                 <div>
                   <div className="flex items-start gap-2 mb-2">
@@ -275,11 +255,9 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
                       >
                         Малый пр-т П.С., 60/19 &gt;
                       </a>
-
                       <p className="text-xs text-[#666666] flex items-center gap-1 mb-2">
                         <Clock className="w-3 h-3" /> Пн–Пт: 9–21, Сб–Вс: 10–21
                       </p>
-
                       {/* Кнопка "Меню" с обводкой */}
                       <button
                         type="button"
@@ -292,13 +270,11 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
                   </div>
                 </div>
               </div>
-
               <div className="flex flex-col items-start gap-3">
                 <div className="flex flex-wrap gap-3">
                   <a href="https://t.me/budemznakomycoffee" target="_blank" rel="noopener noreferrer" className="border-2 border-[#FF6B35] text-[#FF6B35] px-4 py-2 rounded-full hover:bg-[#FF6B35] hover:text-white transition-all hover:scale-105 font-bold text-xs">Telegram</a>
                   <a href="https://vk.com/budemznakomycoffee" target="_blank" rel="noopener noreferrer" className="border-2 border-[#FF6B35] text-[#FF6B35] px-4 py-2 rounded-full hover:bg-[#FF6B35] hover:text-white transition-all hover:scale-105 font-bold text-xs">VK</a>
                 </div>
-
                 {/* Номер телефона */}
                 <a href="tel:+79817175842" className="flex items-center gap-2 text-white hover:text-[#FF6B35] transition-colors" aria-label="Позвонить">
                   <Phone className="w-4 h-4" />
@@ -309,7 +285,6 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
           </div>
         </div>
       </div>
-
       <Modal
         open={activeModal !== null}
         onClose={() => setActiveModal(null)}
