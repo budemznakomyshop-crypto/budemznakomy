@@ -103,40 +103,6 @@
   }
 }
 
-//* Поверхности */
-.video-overlay-dark {
-  /* Затемнение для контраста (оставляем как есть) */
-  background: linear-gradient(180deg, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.46) 60%, rgba(0,0,0,0.6) 100%);
-  z-index: 0;
-}
-
-/* !!! НОВЫЙ КЛАСС ДЛЯ РАЗМЫТИЯ НИЖНЕЙ ГРАНИЦЫ !!! */
-.video-bottom-blur-effect {
-  height: 150px; /* Высота зоны размытия */
-  
-  /* Градиент: от полупрозрачного черного внизу к прозрачному вверху. 
-     Это нужно, чтобы размытый фон не выглядел слишком резко. */
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%); 
-  
-  /* Ключевое свойство: размываем содержимое, находящееся ПОД этим блоком */
-  backdrop-filter: blur(12px); 
-  -webkit-backdrop-filter: blur(12px); 
-  
-  /* Ставим z-index выше, чем у самого видео, но ниже, чем у шапки (z-50) */
-  z-index: 10; 
-  transform: translateY(1px); /* Маленький хак для границы */
-}
-
-/* Старый класс .video-bottom-blur (который делал белый fade) — УДАЛЕН. */
-
-/* Видео и постер уже абсолютные; чтобы header и nav были поверх — даём им высокий z-index */
-.site-header,
-.header,
-.main-title {
-  position: relative; /* или fixed если нужно */
-  z-index: 50; /* больше, чем у hero-элементов */
-}
-
 /* ... остальной код CSS ... */
 
 /* Мобильный fallback: скрыть видео, показать постер и уменьшить высоту */
@@ -167,49 +133,4 @@
 
 .fly-to-cart {
   animation: flyToCart 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-
-/* ---------------------------------------
-   --- КОРРЕКТИРОВКИ ДЛЯ HERO И НАВИГАЦИИ ---
----------------------------------------- */
-
-/* 1. ПОВЫШАЕМ z-index ДЛЯ БЕЛОГО ГРАДИЕНТА */
-.video-bottom-blur {
-  height: 140px;
-  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 60%);
-  z-index: 10 !important; /* Устанавливаем выше, чем у видео */
-  transform: translateY(1px);
-}
-
-
-/* ---------------------------------------
-   --- АНИМАЦИЯ ДЛЯ СТРЕЛКИ SCROLL DOWN ---
----------------------------------------- */
-
-/* 2. Ключевые кадры анимации */
-@keyframes bounce-slow {
-  0%, 100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  50% {
-    transform: translateY(-10px); 
-    opacity: 0.6;
-  }
-}
-
-/* 3. Класс Tailwind для применения анимации */
-.animate-bounce-slow {
-  animation: bounce-slow 2.5s infinite; 
-}
-
-      {/* АНИМИРОВАННАЯ СТРЕЛКА СОВЕТУЮЩАЯ СКРОЛЛ ВНИЗ */}
-      {/* ВРЕМЕННЫЕ СТИЛИ ДЛЯ ОТЛАДКИ (bg-red-500 и z-50) */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-50 p-2 bg-red-500 rounded-lg">
-          <ChevronDown className="w-10 h-10 text-yellow-300" />
-      </div>
-
-    </div>
-  );
 }
