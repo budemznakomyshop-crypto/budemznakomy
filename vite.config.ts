@@ -5,7 +5,6 @@
 
   export default defineConfig({
     plugins: [react()],
-    base: "/budemznakomy/",
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
       alias: {
