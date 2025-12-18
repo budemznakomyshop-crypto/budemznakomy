@@ -25,6 +25,24 @@ const beansProducts = [
     flavors: ["Мёд", "Яблоко", "Миндаль"],
     price: 620,
   },
+
+  // --- НОВЫЕ ПОЗИЦИИ ЗЕРНОВОГО КОФЕ ---
+  {
+    image: "guatemala_antigua.jpg",
+    name: "Гватемала Антигуа",
+    processing: "Мытая обработка",
+    weight: "250 г",
+    flavors: ["Шоколад", "Цитрус", "Карамель"],
+    price: 650,
+  },
+  {
+    image: "brazil_santos.jpg",
+    name: "Бразилия Сантос",
+    processing: "Естественная обработка",
+    weight: "250 г",
+    flavors: ["Орех", "Шоколад", "Карамель"],
+    price: 590,
+  },
 ];
 
 const dripProducts = [
@@ -43,6 +61,24 @@ const dripProducts = [
     quantity: "дрип-пакет",
     flavors: ["Цитрус", "Ягоды", "Цветы"],
     price: 130,
+  },
+
+  // --- НОВЫЕ ПОЗИЦИИ ДРИП-ПАКЕТОВ ---
+  {
+    image: "dripguatemala.jpg",
+    name: "Гватемала Антигуа — дрип",
+    country: "Мытая обработка",
+    quantity: "дрип-пакет",
+    flavors: ["Шоколад", "Цитрус", "Карамель"],
+    price: 140,
+  },
+  {
+    image: "dripbrazil.jpg",
+    name: "Бразилия Сантос — дрип",
+    country: "Естественная обработка",
+    quantity: "дрип-пакет",
+    flavors: ["Орех", "Шоколад", "Карамель"],
+    price: 120,
   },
 ];
 
@@ -111,3 +147,4 @@ export function ProductGrid({ cart, onAddToCart, onRemoveFromCart }: ProductGrid
     </section>
   );
 }
+
