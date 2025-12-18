@@ -273,7 +273,6 @@ export function Navigation({ onBuyClick, cartCount, onCartClick, menus }: Naviga
               <div className="flex flex-col items-start gap-3">
                 <div className="flex flex-wrap gap-3">
                   <a href="https://t.me/budemznakomycoffee" target="_blank" rel="noopener noreferrer" className="border-2 border-[#FF6B35] text-[#FF6B35] px-4 py-2 rounded-full hover:bg-[#FF6B35] hover:text-white transition-all hover:scale-105 font-bold text-xs">Telegram</a>
-                  <a href="https://vk.com/budemznakomycoffee" target="_blank" rel="noopener noreferrer" className="border-2 border-[#FF6B35] text-[#FF6B35] px-4 py-2 rounded-full hover:bg-[#FF6B35] hover:text-white transition-all hover:scale-105 font-bold text-xs">VK</a>
                 </div>
                 {/* Номер телефона */}
                 <a href="tel:+79817175842" className="flex items-center gap-2 text-white hover:text-[#FF6B35] transition-colors" aria-label="Позвонить">

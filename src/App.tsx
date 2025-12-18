@@ -11,6 +11,7 @@ export default function App() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+
   const productsRef = useRef<HTMLDivElement>(null);
 
   const addToCart = (
@@ -21,13 +22,14 @@ export default function App() {
   ) => {
     const itemId = grindType ? `${name}-${grindType}` : name;
 
-    // Animation effect
+    // Анимация полёта в корзину
     const rect = element.getBoundingClientRect();
-    // Ищем кнопку корзины, чтобы к ней летела анимация
     const cartButton = document.querySelector("[data-cart-button]");
+
     if (cartButton) {
       const cartRect = cartButton.getBoundingClientRect();
       const clone = element.cloneNode(true) as HTMLElement;
+
       clone.style.position = "fixed";
       clone.style.top = `${rect.top}px`;
       clone.style.left = `${rect.left}px`;
@@ -51,43 +53,44 @@ export default function App() {
       }, 850);
     }
 
-    // Add to cart
-    setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === itemId);
-      if (existingItem) {
-        return prevCart.map((item) =>
+    setCart((prev) => {
+      const existing = prev.find((item) => item.id === itemId);
+
+      if (existing) {
+        return prev.map((item) =>
           item.id === itemId
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
-      return [...prevCart, { id: itemId, name, price, quantity: 1, grindType }];
+
+      return [...prev, { id: itemId, name, price, quantity: 1, grindType }];
     });
   };
 
   const removeFromCart = (name: string, grindType?: string) => {
     const itemId = grindType ? `${name}-${grindType}` : name;
 
-    setCart((prevCart) => {
-      const existingItem = prevCart.find(
+    setCart((prev) => {
+      const existing = prev.find(
         (item) => item.id === itemId || item.name === name
       );
-      if (!existingItem) return prevCart;
+      if (!existing) return prev;
 
-      if (existingItem.quantity > 1) {
-        return prevCart.map((item) =>
-          item.id === existingItem.id
+      if (existing.quantity > 1) {
+        return prev.map((item) =>
+          item.id === existing.id
             ? { ...item, quantity: item.quantity - 1 }
             : item
         );
       }
 
-      return prevCart.filter((item) => item.id !== existingItem.id);
+      return prev.filter((item) => item.id !== existing.id);
     });
   };
 
   const removeItemCompletely = (itemId: string) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== itemId));
+    setCart((prev) => prev.filter((item) => item.id !== itemId));
   };
 
   const handleCheckout = () => {
@@ -115,9 +118,8 @@ export default function App() {
   );
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* 💥 КЛЮЧЕВОЕ ИСПРАВЛЕНИЕ: Navigation теперь дочерний элемент Hero.
-          Это позволяет Navigation и стрелке отображаться поверх видео. */}
+    <div className="min-h-screen bg-white overflow-x-hidden">
+      {/* HERO */}
       <Hero>
         <Navigation
           onBuyClick={handleBuyClick}
@@ -126,9 +128,12 @@ export default function App() {
         />
       </Hero>
 
-      {/* Продуктовая сетка, которой даем id="coffee". 
-          Hero использует этот ID, чтобы рассчитать свою высоту. */}
-      <div ref={productsRef} id="coffee">
+      {/* 🔑 КЛЮЧ: физический отступ после Hero */}
+      <div
+        ref={productsRef}
+        id="coffee"
+        className="relative z-10 mt-40"
+      >
         <ProductGrid
           cart={cart}
           onAddToCart={addToCart}
