@@ -44,7 +44,7 @@ export function FAQ() {
             ВОПРОСЫ И ОТВЕТЫ
           </h2>
           <p className="handwritten text-4xl text-[#FF6B35] -rotate-2 inline-block">
-            всё что нужно знать о нашем кофе
+            всё, что нужно знать о нашем кофе
           </p>
         </div>
 

@@ -54,7 +54,7 @@ function AdventCard({ image, cartQuantity, onAddToCart, onRemoveFromCart }: Adve
 
         {/* Описание вместо обработки/веса */}
         <div className="text-xs text-[#666666] mb-4 font-medium leading-relaxed">
-          <p className="mb-1">Ограниченная серия.</p>
+          <p className="mb-1"></p>
           <p className="font-bold text-[#1E1E1E]"></p>
         </div>
 
